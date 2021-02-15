@@ -29,7 +29,7 @@ jobs:
         run: |
           pwd
           ls ${GITHUB_WORKSPACE} -al
-          ls posh-syslogger -al
+          ls ${GITHUB_WORKSPACE}/posh-syslogger -al
 
       - name: Publish Module to PowerShell Gallery
         uses: pcgeek86/publish-powershell-module-action@v19
