@@ -117,6 +117,8 @@ function New-Syslog {
   if ($UniqueID) {
     $Syslog.Identity = $UniqueID
   }
+  
+  # establish a connection to the syslog server
   $UdpClient.Connect($Syslog.AddressString(), $Syslog.Port)
   
   return $Syslog
@@ -136,13 +138,22 @@ function Send-SyslogMessage {
     [priority]
     $Priority = 'information'
   )
+  try {
+    $Syslog.Message = "{0}: {1}_{2}: {3}: {4}" -f $Priority.value__, $syslog.AppName, $syslog.Identity, $syslog.Facility , $Message
+    $encoding = [System.Text.Encoding]::ASCII
+    $messageToByte = $encoding.GetBytes($Syslog.Message)
 
-  $Syslog.Message = "{0}: {1}_{2}: {3}: {4}" -f $Priority.value__, $syslog.AppName, $syslog.Identity, $syslog.Facility , $Message
-  $encoding = [System.Text.Encoding]::ASCII
-  $messageToByte = $encoding.GetBytes($Syslog.Message)
-
-  # Send the Message
-  $UdpClient.Send($messageToByte, $messageToByte.Length)
+    # Send the Message
+    $UdpClient.Send($messageToByte, $messageToByte.Length)
+  }
+  catch { 
+    if ([string]::IsNullOrWhiteSpace($Syslog.IPAddress)) {
+      Write-Error -Message "Syslog Server IP is not set, run New-Syslog first." -ErrorAction Stop
+    }
+    else {
+      Write-Error -Message $Error[0] -ErrorAction Stop
+    }
+  }
 }
 
 function Get-SyslogId {
