@@ -29,5 +29,5 @@ jobs:
         uses: pcgeek86/publish-powershell-module-action@v19
         id: posh-syslogger
         with:
-          modulePath: $GITHUB_WORKSPACE/src/posh-syslogger
+          modulePath: src/posh-syslogger
           NuGetApiKey: ${{ secrets.PS_GALLERY_KEY }}
