@@ -28,11 +28,12 @@ jobs:
       - name: Run a multi-line script
         run: |
           ls ./src/posh-syslogger -al
+          ls ${GITHUB_WORKSPACE}/src -al
           pwd | echo
 
       - name: Publish Module to PowerShell Gallery
         uses: pcgeek86/publish-powershell-module-action@v19
         id: posh-syslogger
         with:
-          modulePath: ./src/posh-syslogger/posh-syslogger.psd1
+          modulePath: ${GITHUB_WORKSPACE}/src/posh-syslogger/posh-syslogger.psd1
           NuGetApiKey: ${{ secrets.PS_GALLERY_KEY }}
