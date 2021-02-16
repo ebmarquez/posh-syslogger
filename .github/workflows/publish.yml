@@ -32,8 +32,6 @@ jobs:
           ls ${GITHUB_WORKSPACE}/Posh-SysLogger -al
 
       - name: Publish Module to PowerShell Gallery
-        uses: pcgeek86/publish-powershell-module-action@v19
-        id: publish-module
-        with:
-          modulePath: Posh-SysLogger
-          NuGetApiKey: ${{ secrets.PS_GALLERY_KEY }}
+        run: |
+          Publish-Module -Path $GITHUB_WORKSPACE/Posh-SysLogger -NuGetApiKey: ${{ secrets.PS_GALLERY_KEY }}
+        shell: pwsh
