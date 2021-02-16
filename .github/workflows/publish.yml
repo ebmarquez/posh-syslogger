@@ -32,13 +32,15 @@ jobs:
 
       - name: Get-ChildItem
         run: |
-          Get-ChildItem -Path $GITHUB_WORKSPACE
-          Get-ChildItem -Path ${GITHUB_WORKSPACE}/Posh-SysLogger
+          Get-ChildItem -Path $ENV:GITHUB_WORKSPACE
+          $path = Join-Path -Path $ENV:GITHUB_WORKSPACE -ChildPath 'Posh-SysLogger/Posh-SysLogger.psd1'
+          Get-ChildItem -Path $path
         shell: pwsh
 
       - name: Test Module Manifest
         run: |
-          ModuleManifest -Path ${GITHUB_WORKSPACE}/Posh-SysLogger/Posh-SysLogger.psd1 -Verbose
+          $path = Join-Path -Path $ENV:GITHUB_WORKSPACE -ChildPath 'Posh-SysLogger/Posh-SysLogger.psd1'
+          ModuleManifest -Path $path -Verbose
         shell: pwsh
 
       - name: Publish Module to PowerShell Gallery
