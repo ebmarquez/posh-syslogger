@@ -25,6 +25,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: env
+        run: |
+          Get-ChildItem ENV:
+      shell: pwsh
+
       - name: Get-ChildItem
         run: |
           Get-ChildItem -Path $GITHUB_WORKSPACE
