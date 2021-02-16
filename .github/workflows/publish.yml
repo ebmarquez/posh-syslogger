@@ -25,15 +25,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Run a multi-line script
+      - name: Get-ChildItem
         run: |
-          pwd
-          ls ${GITHUB_WORKSPACE} -al
-          ls ${GITHUB_WORKSPACE}/Posh-SysLogger -al
+          Get-ChildItem -Path ${{GITHUB_WORKSPACE}}
+          Get-ChildItem -Path ${{GITHUB_WORKSPACE}}/Posh-SysLogger
+        shell: pwsh
 
       - name: Test Module Manifest
         run: |
-          ModuleManifest -Path Posh-SysLogger/Posh-SysLogger.psd1 -Verbose
+          ModuleManifest -Path ${{ GITHUB_WORKSPACE }}/Posh-SysLogger/Posh-SysLogger.psd1 -Verbose
         shell: pwsh
 
       - name: Publish Module to PowerShell Gallery
