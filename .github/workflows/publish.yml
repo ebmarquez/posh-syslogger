@@ -41,7 +41,7 @@ jobs:
         run: |
           Get-ChildItem ENV:
           $psl = Get-ChildItem -Path $ENV:GITHUB_WORKSPACE -filter 'Posh-SysLogger'
-          ModuleManifest -Path $psl -Verbose
+          ModuleManifest -Path $psl.FullName -Verbose
         shell: pwsh
 
       - name: Publish Module to PowerShell Gallery
