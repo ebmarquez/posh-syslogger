@@ -28,7 +28,7 @@ jobs:
       - name: env
         run: |
           Get-ChildItem ENV:
-      shell: pwsh
+        shell: pwsh
 
       - name: Get-ChildItem
         run: |
