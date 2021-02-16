@@ -32,6 +32,7 @@ jobs:
 
       - name: Get-ChildItem
         run: |
+          Get-ChildItem ENV:
           $psl = Get-ChildItem -Path $GITHUB_WORKSPACE -filter 'Posh-SysLogger'
           $modPath = Join-Path -Path $GITHUB_WORKSPACE -ChildPath 'Posh-SysLogger/Posh-SysLogger.psd1' -Resolve
           Get-ChildItem -Path $psl.FullName
@@ -39,12 +40,14 @@ jobs:
 
       - name: Test Module Manifest
         run: |
+          Get-ChildItem ENV:
           $psl = Get-ChildItem -Path $GITHUB_WORKSPACE -filter 'Posh-SysLogger'
           ModuleManifest -Path $psl -Verbose
         shell: pwsh
 
       - name: Publish Module to PowerShell Gallery
         run: |
+          Get-ChildItem ENV:
           $psl = Get-ChildItem -Path $GITHUB_WORKSPACE -filter 'Posh-SysLogger'
           Publish-Module -Path $psl.FullName -NuGetApiKey ${{ secrets.PS_GALLERY_KEY }} -Verbose
         shell: pwsh
