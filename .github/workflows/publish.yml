@@ -33,15 +33,14 @@ jobs:
       - name: Get-ChildItem
         run: |
           Get-ChildItem ENV:
-          $psl = Get-ChildItem -Path $GITHUB_WORKSPACE -filter 'Posh-SysLogger'
-          $modPath = Join-Path -Path $GITHUB_WORKSPACE -ChildPath 'Posh-SysLogger/Posh-SysLogger.psd1' -Resolve
+          $psl = Get-ChildItem -Path $ENV:GITHUB_WORKSPACE -filter 'Posh-SysLogger'
           Get-ChildItem -Path $psl.FullName
         shell: pwsh
 
       - name: Test Module Manifest
         run: |
           Get-ChildItem ENV:
-          $psl = Get-ChildItem -Path $GITHUB_WORKSPACE -filter 'Posh-SysLogger'
+          $psl = Get-ChildItem -Path $ENV:GITHUB_WORKSPACE -filter 'Posh-SysLogger'
           ModuleManifest -Path $psl -Verbose
         shell: pwsh
 
