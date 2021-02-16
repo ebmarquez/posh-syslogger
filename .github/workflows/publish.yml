@@ -33,5 +33,5 @@ jobs:
 
       - name: Publish Module to PowerShell Gallery
         run: |
-          Publish-Module -Path Posh-SysLogger -NuGetApiKey: ${{ secrets.PS_GALLERY_KEY }}
+          Publish-Module -Path Posh-SysLogger -NuGetApiKey ${{ secrets.PS_GALLERY_KEY }}
         shell: pwsh
